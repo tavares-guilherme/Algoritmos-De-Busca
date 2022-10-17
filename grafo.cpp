@@ -179,21 +179,25 @@ void Grafo::bfs(int origem, int destino, double dist) {
     
     this->visitados[origem] = true;
 
-    list<int> fila;
-    fila.push_back(origem);
+    list<pi> fila;
+    fila.push_back(make_pair(origem, 0.0));
 
     while(!fila.empty()) {
 
-        origem = fila.front();
+        origem = fila.front().first;
+        double d = fila.front().second;
         No n = this->_vertices[origem];
-        cout << "(" << n.x << ", " << n.y << ") " << endl;
+        cout << "(" << n.x << ", " << n.y << ") dist: " << d << endl;
         fila.pop_front();
+
+        if(origem == destino)
+            return;
 
         for(int i = 0; i < this->_arestas[origem].size(); i++) {
             int aux = this->_arestas[origem].at(i).first;
             if(!this->visitados[aux]) {
                 this->visitados[aux] = true;
-                fila.push_back(aux);
+                fila.push_back(make_pair(aux, d + this->_arestas[origem].at(i).second));
             }
         }
     
@@ -233,7 +237,7 @@ void Grafo::best_first(int atual, int destino, int n) {
 int main() {
     
     Grafo g(10, 2);
-    g.realizaBusca(3, 3, 0);   
+    g.realizaBusca(2, 3, 0);   
 
     return 0;
 }
