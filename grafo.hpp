@@ -21,7 +21,7 @@ public:
     Grafo(int n, int k);
     void exibeVertices();
     void exibeArestas();
-    void realizaBusca(int n);
+    void realizaBusca(int b, int o, int d);
 
 private:
     
@@ -37,7 +37,15 @@ private:
     void gera_vertices(int n);
     void gera_arestas (int k);
 
-    map<int, bool> dfsVisitados;
+    void exibeCaminho(vector<int> caminho, int origem, int no);
+
+    void dfs(int origem, int dest, double dist);
+    void bfs(int origem, int dest, double dist);
+
+    void best_first(int atual, int destino, int n);
+
+    // Marca os vértices visitados durante as buscas
+    map<int, bool> visitados;
     
 
 };
