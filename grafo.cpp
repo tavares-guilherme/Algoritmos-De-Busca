@@ -64,6 +64,7 @@ void Grafo::realizaBusca(int b, int o, int d) {
         case(3):
             cout << "Realizando busca com best first.\n";
             this->best_first(o, d, this->_tam);
+            break;
         default:
             cout << "Valor inválido.\n";
     }
@@ -210,8 +211,9 @@ void Grafo::best_first(int atual, int destino, int n) {
 
     while(!pq.empty()) {
         int x = pq.top().first;
+        double d = pq.top().second;
         No n = this->_vertices[x];
-        cout << "(" << n.x << ", " << n.y << ") " << endl;
+        cout << "(" << n.x << ", " << n.y << ") dist: " << d << endl;
 
         pq.pop();
         // Achou o destino
@@ -222,7 +224,7 @@ void Grafo::best_first(int atual, int destino, int n) {
             
             if(!this->visitados[this->_arestas[x][i].first]) {
                 this->visitados[this->_arestas[x][i].first] = true;
-                pq.push(make_pair(this->_arestas[x][i].first, this->_arestas[x][i].second));
+                pq.push(make_pair(this->_arestas[x][i].first, this->_arestas[x][i].second + d));
             }
         }
     }
